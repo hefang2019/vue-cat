@@ -36,4 +36,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ###
 
-https://hefang2019.github.io/
+https://hefang2019.github.io/vue-cat/vue-PetMall/pet-mall/dist/
