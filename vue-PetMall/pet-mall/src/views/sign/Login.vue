@@ -47,14 +47,20 @@ export default {
     },
     //登录
     async login_in() {
-      const res = await this.$http
+      this.$common.setCookie("username", this.username, 7);
+      await this.$http
         .get("user", {
           params: {
             name: this.username,
             password: this.password
           }
         })
-        .then(res => {});
+        .then(res => {
+          this.$router.push("/user");
+          if (res.status == 200) {
+            alert("登录成功");
+          }
+        });
     }
   }
 };

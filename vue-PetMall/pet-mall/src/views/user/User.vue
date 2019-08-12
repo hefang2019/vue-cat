@@ -14,10 +14,14 @@
         <div class="photo">
           <img src="https://static.epetbar.com/static_wap/appmall/avatar/dog.png" alt="">
         </div>
-        <div class="login">
+        <div class="login" v-if="bool">
           <a href="###" @click="goto('login')"> 登录 </a>
           <b> | </b>
           <a href="###" @click="goto('reg')"> 注册 </a>
+        </div>
+        <div class="username" v-if="!bool">
+          <span v-text="user">122</span>
+          <span @click="output(user)">退出</span>
         </div>
       </div>
       <div class="vip">
@@ -73,7 +77,9 @@ export default {
       vipClub: [],
       wallet: [],
       MyOrder: [],
-      myInfo: []
+      myInfo: [],
+      bool: false,
+      user: ""
     };
   },
   async created() {
@@ -86,9 +92,23 @@ export default {
     this.wallet = vipClub.data.list[2].data.items;
     this.myInfo = vipClub.data.list[3].data.items;
   },
+  mounted() {
+    let user = this.$common.getCookie("username");
+    // console.log(user);
+    if (user) {
+      this.bool = false;
+      this.user = user;
+    } else {
+      this.bool = true;
+    }
+  },
   methods: {
     goto(name) {
       this.$router.push({ name });
+    },
+    output(name) {
+      this.$common.delCookie("username");
+      location.reload();
     }
   }
 };
@@ -145,6 +165,15 @@ export default {
         a {
           color: #fff;
           line-height: 70px;
+        }
+      }
+      .username {
+        flex: 1;
+        color: #fff;
+        margin-left: 20px;
+        span {
+          line-height: 70px;
+          margin-left: 10px;
         }
       }
     }
